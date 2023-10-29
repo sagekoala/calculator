@@ -1,11 +1,9 @@
 // Script to operate a calculator
 
 // Create variables
-const a = 2;
-const b = 4;
-const operator = '+';
-
-// Could have an object that reads the user's operator and calls function that corresponds to it
+const a = 10;
+const b = 10;
+const operator = '/';
 
 // Create functions for the different operators
 const add = function (a, b) {
@@ -25,14 +23,21 @@ const divide = function (a, b) {
 };
 
 function operate(a, b, operator) {
+
+    const resultDiv = document.querySelector('.result');
+
     // Calls function corresponding to operator on the numbers
     if (operator === '+') {
+        resultDiv.textContent = `${a} + ${b} = ${add(a, b)}`;
         return add(a, b);
     } else if (operator === '-') {
+        resultDiv.textContent = `${a} - ${b} = ${subtract(a, b)}`;
         return subtract(a, b);
     } else if (operator === 'x') {
+        resultDiv.textContent = `${a} x ${b} = ${multiply(a, b)}`;
         return multiply(a, b);
     } else {
+        resultDiv.textContent = `${a} / ${b} = ${divide(a, b)}`;
         return divide(a, b);
     }
 }
