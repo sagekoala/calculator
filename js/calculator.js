@@ -1,9 +1,9 @@
 // Script to operate a calculator
 
-// Create variables
-const a = 10;
-const b = 10;
-const operator = '/';
+// Global variables
+const a = 13;
+const b = 13;
+const operator = 'x';
 
 // Create functions for the different operators
 const add = function (a, b) {
@@ -24,23 +24,71 @@ const divide = function (a, b) {
 
 function operate(a, b, operator) {
 
-    const resultDiv = document.querySelector('.result');
-
-    // Calls function corresponding to operator on the numbers
+    // Performs operation and returns result
     if (operator === '+') {
-        resultDiv.textContent = `${a} + ${b} = ${add(a, b)}`;
         return add(a, b);
     } else if (operator === '-') {
-        resultDiv.textContent = `${a} - ${b} = ${subtract(a, b)}`;
         return subtract(a, b);
     } else if (operator === 'x') {
-        resultDiv.textContent = `${a} x ${b} = ${multiply(a, b)}`;
         return multiply(a, b);
     } else {
-        resultDiv.textContent = `${a} / ${b} = ${divide(a, b)}`;
         return divide(a, b);
     }
 }
 
-// Event listener
-operate(a, b, operator);
+function displayResult(result) {
+
+    // Reference to div where result will be displayed
+    const resultDiv = document.querySelector('.result');
+    resultDiv.textContent = `${a} ${operator} ${b} = ${result}`;
+}
+
+// Calling functions to test correctness
+// Set up event handler for when = is clicked
+const equals = document.querySelector('.equal-button');
+equals.addEventListener('click', function() {
+
+    // Operate on the query and display result onClick of =
+    const value = operate(a, b, operator);
+    displayResult(value);
+});
+
+
+
+// *** Future work - reset variables *** //
+// Set up event listener to clear resultDiv
+const clearBtn = document.querySelector('.clear-button');
+clearBtn.addEventListener('click', function() {
+    const resultDiv = document.querySelector('.result');
+    resultDiv.textContent = '';
+});
+
+// For fun, set up event listener to display numbers being typed
+// with a space after each click
+const numbers = document.querySelectorAll('.nums button');
+numbers.forEach(number => {
+    number.addEventListener('click', numberHandler);
+});
+
+// Function to handle numbers that are clicked
+function numberHandler(e) {
+    const resultDiv = document.querySelector('.result');
+    resultDiv.textContent += (e.srcElement.textContent + " ");
+}
+
+
+
+// NEXT STEPS //
+
+//Set up a function to read user input, break up nums and operators into vars and calculate pairs
+// Set up event lister on the buttons
+// to display user query in result screen
+
+// Add equal button that will trigger the operate function
+// Somehow need to set it up so that it calls operate function
+// on each trio of 2 nums and operator
+// but also that it respects order of operations
+
+// Set up event listener on the equal button to 
+// call the operate function
+
