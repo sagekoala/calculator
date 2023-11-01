@@ -43,7 +43,6 @@ function displayResult(result) {
     resultDiv.textContent = `${a} ${operator} ${b} = ${result}`;
 }
 
-// Calling functions to test correctness
 // Set up event handler for when = is clicked
 const equals = document.querySelector('.equal-button');
 equals.addEventListener('click', function() {
@@ -52,8 +51,6 @@ equals.addEventListener('click', function() {
     const value = operate(a, b, operator);
     displayResult(value);
 });
-
-
 
 // *** Future work - reset variables *** //
 // Set up event listener to clear resultDiv
@@ -86,19 +83,26 @@ operators.forEach(operator => {
 // Add class to operator button onClick to highlight its selection, remove highlight
 // from other operator buttons
 function operatorHandler(e) {
+
+    // Display operator on screen
+    const resultDiv = document.querySelector('.result');
+    resultDiv.textContent += (" " + e.srcElement.textContent + " ");
+    
+    styleActiveOperator(e);
+}
+
+function styleActiveOperator(e) {
     const siblings = e.srcElement.parentElement.childNodes;
 
+    // Styling operator active selection
     siblings.forEach(sibling => {
         if (e.srcElement === sibling) {
             sibling.classList.add('operator-active');
         } else if (sibling.classList) {
-            sibling.classList.remove('operator-active')
+            sibling.classList.remove('operator-active');
         }
     });
 }
-
-
-
 
 // NEXT STEPS //
 
