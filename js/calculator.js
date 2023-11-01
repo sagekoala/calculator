@@ -63,6 +63,7 @@ clearBtn.addEventListener('click', function() {
     resultDiv.textContent = '';
 });
 
+// ** NUMBERS ** //
 // For fun, set up event listener to display numbers being typed
 // with a space after each click
 const numbers = document.querySelectorAll('.nums button');
@@ -73,8 +74,29 @@ numbers.forEach(number => {
 // Function to handle numbers that are clicked
 function numberHandler(e) {
     const resultDiv = document.querySelector('.result');
-    resultDiv.textContent += (e.srcElement.textContent + " ");
+    resultDiv.textContent += e.srcElement.textContent;
 }
+
+//** Operators **//
+const operators = document.querySelectorAll('.operator'); // Node list of operators
+operators.forEach(operator => {
+    operator.addEventListener('click', operatorHandler);
+});
+
+// Add class to operator button onClick to highlight its selection, remove highlight
+// from other operator buttons
+function operatorHandler(e) {
+    const siblings = e.srcElement.parentElement.childNodes;
+
+    siblings.forEach(sibling => {
+        if (e.srcElement === sibling) {
+            sibling.classList.add('operator-active');
+        } else if (sibling.classList) {
+            sibling.classList.remove('operator-active')
+        }
+    });
+}
+
 
 
 
