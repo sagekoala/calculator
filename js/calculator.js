@@ -49,10 +49,10 @@ numbers.forEach(number => {
 function numberHandler(e) {
     const screenDiv = document.querySelector('.screen');
 
-    // Clear screen if screenDiv has class="reset", then remove class
-    if (screenDiv.classList.contains('reset')) {
+    // Clear screen if screenDiv has class="result", then remove class
+    if (screenDiv.classList.contains('result')) {
         screenDiv.textContent = ""; // Reset screen content
-        screenDiv.classList.remove('reset');
+        screenDiv.classList.remove('result');
     }
 
     screenDiv.textContent += e.srcElement.textContent;
@@ -109,8 +109,8 @@ function storeValues(number, operator) {
         valueStorage.push(result);
         valueStorage.push(operator);
 
-        // Add reset class to screenDiv as flag to validate that textContent is result
-        screenDivRef.classList.add('reset');
+        // Add result class to screenDiv as flag to validate that textContent is result
+        screenDivRef.classList.add('result');
     } else {
         valueStorage.push(operator);
 
