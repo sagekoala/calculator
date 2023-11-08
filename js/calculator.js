@@ -1,9 +1,7 @@
 // Script to operate a calculator
 
 // Global variables
-const a = 13;
-const b = 13;
-const operator = 'x';
+let valueStorage = [];
 
 // Create functions for the different operators
 const add = function (a, b) {
@@ -36,33 +34,12 @@ function operate(a, b, operator) {
     }
 }
 
-function displayResult(result) {
-
-    // Reference to div where result will be displayed
-    const resultDiv = document.querySelector('.result');
-    resultDiv.textContent = `${a} ${operator} ${b} = ${result}`;
-}
-
-// Set up event handler for when = is clicked
-const equals = document.querySelector('.equal-button');
-equals.addEventListener('click', function() {
-
-    // Operate on the query and display result onClick of =
-    const value = operate(a, b, operator);
-    displayResult(value);
-});
-
 // *** Future work - reset variables *** //
-// Set up event listener to clear resultDiv
+// Set up event listener to clear screenDiv
 const clearBtn = document.querySelector('.clear-button');
-clearBtn.addEventListener('click', function() {
-    const resultDiv = document.querySelector('.result');
-    resultDiv.textContent = '';
-});
 
-// ** NUMBERS ** //
-// For fun, set up event listener to display numbers being typed
-// with a space after each click
+
+// ** NUMBER Buttons ** //
 const numbers = document.querySelectorAll('.nums button');
 numbers.forEach(number => {
     number.addEventListener('click', numberHandler);
@@ -70,8 +47,15 @@ numbers.forEach(number => {
 
 // Function to handle numbers that are clicked
 function numberHandler(e) {
-    const resultDiv = document.querySelector('.result');
-    resultDiv.textContent += e.srcElement.textContent;
+    const screenDiv = document.querySelector('.screen');
+
+    // Clear screen if screenDiv has class="reset", then remove class
+    if (screenDiv.classList.contains('reset')) {
+        screenDiv.textContent = ""; // Reset screen content
+        screenDiv.classList.remove('reset');
+    }
+
+    screenDiv.textContent += e.srcElement.textContent;
 }
 
 //** Operators **//
@@ -84,10 +68,12 @@ operators.forEach(operator => {
 // from other operator buttons
 function operatorHandler(e) {
 
-    // Display operator on screen
-    const resultDiv = document.querySelector('.result');
-    resultDiv.textContent += (" " + e.srcElement.textContent + " ");
-    
+    // Storing then clearing previous values, styling selected operator
+    const screenDiv = document.querySelector('.screen');
+    storeValues(screenDiv.textContent, e.srcElement.textContent);
+
+    // // Clear previous value from screen
+    // screenDiv.textContent = "";
     styleActiveOperator(e);
 }
 
@@ -104,17 +90,41 @@ function styleActiveOperator(e) {
     });
 }
 
+function storeValues(number, operator) {
+    
+    valueStorage.push(number);
+    console.log(`Value storage length ${valueStorage.length}`);
+    let screenDivRef = document.querySelector(".screen");
+
+
+    if (valueStorage.length === 3) {
+        const result = operate(parseInt(valueStorage[0]), parseInt(number), valueStorage[1]);
+        
+        screenDivRef.textContent = result;
+
+        // Reset valueStorage array
+        valueStorage = [];
+
+        // Push current result and operator to valueStorage list
+        valueStorage.push(result);
+        valueStorage.push(operator);
+
+        // Add reset class to screenDiv as flag to validate that textContent is result
+        screenDivRef.classList.add('reset');
+    } else {
+        valueStorage.push(operator);
+
+        // Clear screen 
+        screenDivRef.textContent = "";
+    }
+}
+
 // NEXT STEPS //
 
-//Set up a function to read user input, break up nums and operators into vars and calculate pairs
-// Set up event lister on the buttons
-// to display user query in result screen
-
-// Add equal button that will trigger the operate function
-// Somehow need to set it up so that it calls operate function
-// on each trio of 2 nums and operator
-// but also that it respects order of operations
+// Add the number 0 to index.html 
 
 // Set up event listener on the equal button to 
 // call the operate function
+
+// Set up event listener on the AC button to clear/reset everything
 
