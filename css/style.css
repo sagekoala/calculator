@@ -52,12 +52,12 @@ button {
     background-color: orangered;
 }
 
-/*  result
+/*  screen
     This div is like the glass screen on the calculator which 
     displays the user query and result
 */
 
-.result {
+.screen {
     background-color: blue;
     color: white;
     justify-content: center;
